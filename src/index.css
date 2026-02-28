@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scroll-triggered animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+.delay-7 { transition-delay: 0.7s; }
+.delay-8 { transition-delay: 0.8s; }
+
+/* Hero blur-to-clear orchestrated entrance — word-level stagger */
+@keyframes blur-in {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.hero-blur {
+  animation: blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  filter: blur(12px);
+}
+
+/* Hero sequential stagger: badge → title words → subtitle → CTA → stats */
+.hero-delay-1 { animation-delay: 0.0s; }
+.hero-delay-2 { animation-delay: 0.1s; }
+.hero-delay-3 { animation-delay: 0.2s; }
+.hero-delay-4 { animation-delay: 0.35s; }
+.hero-delay-5 { animation-delay: 0.5s; }
+.hero-delay-6 { animation-delay: 0.65s; }
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-animate { animation: blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; filter: blur(12px); }
+.hero-animate-delay-1 { animation: blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.0s forwards; opacity: 0; filter: blur(12px); }
+.hero-animate-delay-2 { animation: blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; filter: blur(12px); }
+.hero-animate-delay-3 { animation: blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; filter: blur(12px); }
+.hero-animate-delay-4 { animation: blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards; opacity: 0; filter: blur(12px); }
+.hero-animate-delay-5 { animation: blur-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; opacity: 0; filter: blur(12px); }
+
+.mobile-menu-enter {
+  animation: fade-in 0.2s ease-out forwards;
+}
+
+/* Card hover — lift with shadow expansion */
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
+}
+
+/* Image hover — subtle zoom */
+.img-hover {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.img-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Button hover — scale + shadow */
+.btn-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-hover:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-blur,
+  .hero-animate,
+  .hero-animate-delay-1,
+  .hero-animate-delay-2,
+  .hero-animate-delay-3,
+  .hero-animate-delay-4,
+  .hero-animate-delay-5,
+  .animate-on-scroll,
+  .card-hover,
+  .img-hover,
+  .btn-hover {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
